@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="/js/Drawing.js"></script>
+    <title>azulej.io</title>
+  </head>
+  <body>
+    <div class="bounding-area">
+      <div
+        class="drawing-area"
+        style="text-align: right; min-width: 400px; max-width: 85vh;"
+      >
+        <div id="grid-lines">
+          <div id="vert"></div>
+          <div id="horiz"></div>
+          <div id="diag1"></div>
+          <div id="diag2"></div>
+        </div>
+        <canvas
+          id="drawing-canvas"
+          style="width: 100%; border: 1px solid rgba(0,0,0,.1); background-color: white; margin-bottom: -6px;"
+        ></canvas>
+      </div>
+      <div id="drawing-tools" class="control-area" style="max-width: 42.5vh;">
+        <div class="brush-color">
+          <label for="brush-color">Choose brush color: </label>
+          <input id="brush-color" type="color" value="#0055AA" />
+        </div>
+        <div class="brush-size">
+          <input
+            type="range"
+            id="brush-size"
+            name="brush-size"
+            min="1"
+            max="40"
+            defaultvalue="20"
+            step="1"
+            style="transform: translateX(-.4em); width: 6em;"
+          />
+          <label for="brush-size">
+            Brush size: <span id="brush-size-value">20</span>
+          </label>
+        </div>
+        <div class="toggle-grid">
+          <button id="toggle-grid">
+            Toggle grid lines
+          </button>
+        </div>
+        <div class="upload-image">
+          <button id="upload-image">
+            <s>Upload image (coming soon)</s>
+          </button>
+        </div>
+        <div class="render">
+          <button id="render">
+            Generate renders (in progress)
+          </button>
+        </div>
+        <div class="exp-render">
+          <button id="exp-render">
+            Generate renders (experiment)
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="renders">
+      <div id="render1"></div>
+      <div id="render2"></div>
+      <div id="render3"></div>
+      <div id="render4"></div>
+    </div>
+    <div style="padding: 1em;">
+      This lite version of azulej.io is still in progress! The goal is to create
+      a fully browser-based version of the Azulejo Designer that won't require
+      maintenance 1-5 years from now. The full MERN version will stay online at
+      <a href="https://azulejio.herokuapp.com/"
+        >https://azulejio.herokuapp.com/</a
+      >
+      until the free tiers of all those services stop working.
+    </div>
+    <div class="header-bg">
+      <h1 class="title">
+        azulej.io<sup style="font-variant: small-caps">lite</sup>
+      </h1>
+      <h2 class="subtitle"><i>Your online azulejo designer</i></h2>
+    </div>
+    <script type="text/javascript" src="/js/azulejio.js"></script>
+    <script type="text/javascript" src="/js/generateRenders.js"></script>
+  </body>
+</html>
