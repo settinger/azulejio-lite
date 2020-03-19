@@ -15,34 +15,45 @@ const generateRenders = () => {
   $render2.innerHTML = `<img src="${img}" alt="my azulejo design" width="50%" style="margin: 25%; box-shadow: 6px 6px 12px 5px rgba(0,0,0,0.75);"/>`;
   $render2.style.backgroundImage = "url(/img/wood-original.jpg)";
   $render2.style.width = "40%";
-  $render3.innerHTML = `<img src="/img/tile_template_1.png" alt="oh a cool render" width="100%" />`;
-  $render3.style.width = "40%";
-  $render3.style.backgroundSize = "10%";
-  $render3.style.backgroundImage = `url(${img})`;
-  $render4.innerHTML = `<img src="/img/tile_template_2.png" alt="oh a cool render" width="100%" />`;
-  $render4.style.width = "40%";
-  $render4.style.backgroundSize = "10%";
-  $render4.style.backgroundImage = `url(${img})`;
+  generateFacade(img, "/img/tile_template_1.png", $render3);
+  generateFacade(img, "/img/tile_template_2.png", $render4);
 };
 
-// TODO: write a method to convert css-styled elements to SVG, embed in canvas, convert to PNG
-const cssStyledImageToDataURL = () => {
-  // $render3.style = {};
-  // $render3.innerHTML = "";
-  // const $tempCanvas = document.createElement("canvas");
-  // $tempCanvas.width = 1023;
-  // $tempCanvas.height = 1525;
-  // const context = $tempCanvas.getContext("2d");
-  // context.fillStyle = "red";
-  // context.fillRect(0, 0, 200, 200);
-  // const img = $tempCanvas.toDataURL("image/png");
-  // $render3.innerHTML = `<img src="${img}" alt="my azulejo design" width="100%" />`;
+const generateFacade = (imgURI, facadeSource, element) => {
+  // Clear the div where the new image will appear
+  element.style = {};
+  element.innerHTML = ``;
+
+  // Generate canvas element
+  const $tempCanvas = document.createElement("canvas");
+  $tempCanvas.width = 666;
+  $tempCanvas.height = 1000;
+  const context = $tempCanvas.getContext("2d");
+
+  // tile the image URI
+  const tile = new Image();
+  tile.src = imgURI;
+  tile.onload = () => {
+    for (let x = 0; x < 666; x += 66.67) {
+      for (let y = 0; y < 1000; y += 66.67) {
+        context.drawImage(tile, x, y, 66.67, 66.67);
+      }
+    }
+    // Load building facade picture
+    const facade = new Image();
+    facade.src = facadeSource;
+    facade.onload = () => {
+      context.drawImage(facade, 0, 0);
+      console.log("aaaa");
+      // Get canvas URI
+      const png = $tempCanvas.toDataURL("image/png");
+
+      element.innerHTML = `<img src="${png}" width="100%" />`;
+      element.style.width = "40%";
+    };
+  };
 };
 
 // Add listener for generating renders
 const $renderButton = document.getElementById("render");
 $renderButton.addEventListener("click", generateRenders);
-
-// // Add listener for generating renders
-// const $expRenderButton = document.getElementById("exp-render");
-// $expRenderButton.addEventListener("click", cssStyledImageToDataURL);
