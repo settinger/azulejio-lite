@@ -44,7 +44,6 @@ const generateFacade = (imgURI, facadeSource, element) => {
     facade.src = facadeSource;
     facade.onload = () => {
       context.drawImage(facade, 0, 0);
-      console.log("aaaa");
       // Get canvas URI
       const png = $tempCanvas.toDataURL("image/png");
 
@@ -57,3 +56,40 @@ const generateFacade = (imgURI, facadeSource, element) => {
 // Add listener for generating renders
 const $renderButton = document.getElementById("render");
 $renderButton.addEventListener("click", generateRenders);
+
+const loadFile = e => {
+  const context = $canvas.getContext("2d");
+  const uploadedImage = new Image();
+  uploadedImage.src = URL.createObjectURL(e.target.files[0]);
+  uploadedImage.onload = () => {
+    // Draw image
+    context.drawImage(uploadedImage, -600, -600, 1200, 1200);
+    // Clear the diagonal, mirror and draw again
+    context.globalCompositeOperation = "destination-out";
+    context.lineWidth = 0;
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(-0.5, 0);
+    context.lineTo(-600, -600);
+    context.lineTo(-600, 600);
+    context.lineTo(600, 600);
+    context.lineTo(600, -600);
+    context.lineTo(0, -600);
+    context.lineTo(0, 0);
+    context.closePath();
+    context.fill();
+    context.globalCompositeOperation = "source-over";
+    // Mirror and repeat
+    context.save();
+    context.scale(1, -1);
+    context.rotate(-Math.PI / 2);
+    context.drawImage($canvas, -600, -600);
+    context.scale(1, -1);
+    context.drawImage($canvas, -600, -600);
+    context.scale(1, -1);
+    context.rotate(Math.PI / 2);
+    context.drawImage($canvas, -600, -600);
+    // Reset transform
+    context.restore();
+  };
+};

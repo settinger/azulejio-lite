@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
     <script type="text/javascript" src="/js/Drawing.js"></script>
+    <script type="text/javascript" src="/js/loadImage.js"></script>
     <title>azulej.io</title>
   </head>
   <body>
@@ -26,11 +27,11 @@
         ></canvas>
       </div>
       <div id="drawing-tools" class="control-area" style="max-width: 42.5vh;">
-        <div class="brush-color">
+        <div class="brush-color" style="margin: 1em;">
           <label for="brush-color">Choose brush color: </label>
           <input id="brush-color" type="color" value="#0055AA" />
         </div>
-        <div class="brush-size">
+        <div class="brush-size" style="margin: 1em;">
           <input
             type="range"
             id="brush-size"
@@ -45,17 +46,24 @@
             Brush size: <span id="brush-size-value">20</span>
           </label>
         </div>
-        <div class="toggle-grid">
+        <div class="toggle-grid" style="margin: 1em;">
           <button id="toggle-grid">
             Toggle grid lines
           </button>
         </div>
-        <div class="upload-image">
-          <button id="upload-image">
-            <s>Upload image (coming soon)</s>
-          </button>
+        <div class="upload-image" style="margin: 1em;">
+          <label for="file">
+            Upload an existing image to draw on:
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            id="file"
+            onchange="loadFile(event)"
+          />
         </div>
-        <div class="render">
+        <div class="render" style="margin: 1em;">
           <button id="render">
             Generate renders (in progress)
           </button>
